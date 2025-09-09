@@ -4,10 +4,20 @@ from stats import *
 import os
 
 def get_book_text(file_path):
+    """Takes the path to a text file and returns the text as a string.
+
+    Keyword arguments:
+    file_path -- relative file location
+    """
     with open(file_path, "rb") as f:
         return f.read().decode("utf-8")
     
 def book_report(file_path):
+    """Opens a text file and counts the number of words and characters in it.
+
+    Keyword arguments:
+    file_path -- the file's relative location
+    """
     book_text = get_book_text(file_path)
     word_count = get_num_words(book_text)
     char_array = dict_to_sorted_array(book_text)
