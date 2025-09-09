@@ -19,10 +19,12 @@ def get_num_chars(string_of_words):
     char_dict = {}
 
     for ch in lower_case_string:
-        if ch in char_dict.keys():
-            char_dict[str(ch)] += 1
-        else:
-            char_dict[str(ch)] = 1
+        if ch.isalpha():
+            if "a" <= ch <= "z":
+                if ch in char_dict.keys():
+                    char_dict[str(ch)] += 1
+                else:
+                    char_dict[str(ch)] = 1
     
     return char_dict
 

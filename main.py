@@ -1,8 +1,11 @@
+import sys
 from stats import *
 
+import os
+
 def get_book_text(file_path):
-    with open(file_path) as f:
-        return f.read()
+    with open(file_path, "rb") as f:
+        return f.read().decode("utf-8")
     
 def book_report(file_path):
     book_text = get_book_text(file_path)
@@ -15,12 +18,27 @@ def book_report(file_path):
     print(f"Found {word_count} total words")
     print("--------- Character Count -------")
     for char_dict in char_array:
-        if char_dict["name"].isalpha():
-            print(f"{char_dict["name"]}: {char_dict["num"]}")
+        print(f"{char_dict["name"]}: {char_dict["num"]}")
     print("============= END ===============")
 
 def main():
-    book_address = "books/frankenstein.txt"
-    book_report(book_address)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        book_address = sys.argv[1]
+        book_report(book_address)
 
+        print("path:", os.path.abspath(book_address))
+        print("stat size:", os.path.getsize(book_address))
+        with open(book_address, "r", encoding="utf-8", newline=None) as f:
+            print("newlines seen:", f.newlines)  # after first read attempt, so:
+            text = f.read()
+        print("len(text):", len(text))
+        with open(book_address, "rb") as f:
+            data = f.read()
+        print("rb len:", len(data))
+        print("decoded len:", len(data.decode("utf-8")))
+        print("get_book_text from:", get_book_text.__code__.co_filename)
+        
 main()
